@@ -50,6 +50,50 @@ export type Database = {
           },
         ]
       }
+      player_videos: {
+        Row: {
+          analysis_result: Json | null
+          coach_feedback: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          status: string | null
+          updated_at: string | null
+          user_id: string
+          video_url: string
+        }
+        Insert: {
+          analysis_result?: Json | null
+          coach_feedback?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+          video_url: string
+        }
+        Update: {
+          analysis_result?: Json | null
+          coach_feedback?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
+          video_url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "player_videos_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       players: {
         Row: {
           created_at: string | null

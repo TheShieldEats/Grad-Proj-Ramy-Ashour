@@ -4,7 +4,7 @@ import "./globals.css";
 import Script from "next/script";
 import { TempoInit } from "@/components/tempo-init";
 import { ThemeProvider } from "@/components/theme-provider";
-import AIChat from "@/components/ai-chat";
+import ImprovedAIChat from "@/components/improved-ai-chat";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +30,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <AIChat />
+          <ImprovedAIChat />
           <TempoInit />
         </ThemeProvider>
       </body>
