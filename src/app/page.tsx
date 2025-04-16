@@ -31,25 +31,71 @@ export default async function Home() {
   } = await supabase.auth.getUser();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-primary/90 to-gray-900">
       <Navbar />
       <Hero />
-
+      {/* Ramy Ashour Feature Section */}
+      <section className="py-16 bg-gray-900 relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="md:w-1/2">
+              <div className="relative w-full aspect-square max-w-md mx-auto overflow-hidden rounded-2xl shadow-2xl">
+                <Image
+                  src="https://images.dailynewsegypt.com/2018/09/6-3.jpg"
+                  alt="Ramy Ashour"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+            <div className="md:w-1/2">
+              <span className="inline-block px-4 py-1 bg-primary/80 text-white rounded-full text-sm font-medium mb-4">
+                WORLD CHAMPION
+              </span>
+              <h2 className="text-4xl font-bold mb-6 text-white">
+                Train with Ramy Ashour
+              </h2>
+              <p className="text-lg text-white mb-6">
+                Ramy Ashour is widely regarded as one of the most talented
+                squash players of all time. A three-time World Champion and
+                former World #1, Ramy's unique playing style and technical
+                brilliance have revolutionized the game.
+              </p>
+              <p className="text-lg text-white mb-6">
+                Now, through this exclusive academy, players of all levels can
+                access Ramy's training methodology, technical insights, and
+                strategic approach to the game.
+              </p>
+              <a
+                href="/about"
+                className="inline-flex items-center px-6 py-3 text-white bg-gradient-to-r from-primary to-black rounded-xl hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 font-medium"
+              >
+                Learn more about Ramy
+                <ArrowUpRight className="ml-2 w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Features Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section
+        id="features"
+        className="py-24 bg-gray-800 relative overflow-hidden"
+      >
         {/* Background elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-red-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-red-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium mb-4">
               FEATURES
             </span>
-            <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+            <h2 className="text-4xl font-bold mb-4 text-white">
               World-Class Squash Training
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-white max-w-2xl mx-auto">
               Train with Ramy Ashour's methodology and take your game to the
               next level with our comprehensive platform.
             </p>
@@ -83,20 +129,19 @@ export default async function Home() {
                 key={index}
                 className="p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:translate-y-[-5px] border border-gray-100 backdrop-blur-sm"
               >
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center text-blue-600 mb-6">
+                <div className="bg-red-100 w-14 h-14 rounded-xl flex items-center justify-center text-red-600 mb-6">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="text-gray-700">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-
       {/* About Ramy Section */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
-        <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-red-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
@@ -105,10 +150,10 @@ export default async function Home() {
               </div>
             </div>
             <div className="md:w-1/2">
-              <span className="inline-block px-4 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4">
+              <span className="inline-block px-4 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium mb-4">
                 ABOUT
               </span>
-              <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+              <h2 className="text-4xl font-bold mb-6 text-gray-900">
                 Learn from the Best
               </h2>
               <p className="text-lg text-gray-700 mb-6">
@@ -124,7 +169,7 @@ export default async function Home() {
               </p>
               <a
                 href="/about"
-                className="inline-flex items-center px-6 py-3 text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 font-medium"
+                className="inline-flex items-center px-6 py-3 text-white bg-gradient-to-r from-red-600 to-red-800 rounded-xl hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 font-medium"
               >
                 Learn more about Ramy
                 <ArrowUpRight className="ml-2 w-4 h-4" />
@@ -133,22 +178,21 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
       {/* How It Works Section */}
       <section
         id="how-it-works"
         className="py-24 bg-white relative overflow-hidden"
       >
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-red-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium mb-4">
               PROCESS
             </span>
-            <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+            <h2 className="text-4xl font-bold mb-4 text-gray-900">
               How It Works
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-700 max-w-2xl mx-auto">
               Our platform combines AI technology with professional coaching to
               deliver a comprehensive training experience.
             </p>
@@ -157,33 +201,33 @@ export default async function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:translate-y-[-5px] relative">
               <div className="absolute -top-5 -right-5 w-24 h-24">
-                <Ball3D />
+                <Ball3D color="red" />
               </div>
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-6">
+              <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-6">
                 1
               </div>
               <h3 className="text-xl font-semibold mb-3">Upload Your Videos</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-700">
                 Record your practice sessions or matches and upload them to our
                 platform for analysis.
               </p>
             </div>
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:translate-y-[-5px] mt-8 md:mt-0">
-              <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-6">
+              <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-6">
                 2
               </div>
               <h3 className="text-xl font-semibold mb-3">AI Analysis</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-700">
                 Our AI system analyzes your technique, movement, and strategy,
                 providing detailed feedback.
               </p>
             </div>
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:translate-y-[-5px] mt-8 md:mt-16">
-              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-6">
+              <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-800 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-6">
                 3
               </div>
               <h3 className="text-xl font-semibold mb-3">Coach Verification</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-700">
                 Professional coaches review the AI assessment and provide
                 additional insights and recommendations.
               </p>
@@ -191,11 +235,10 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-r from-red-600 to-red-700 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544979590-37e9b47eb705?w=1200&q=30')] bg-cover bg-center opacity-10"></div>
-        <div className="absolute inset-0 bg-blue-600 opacity-80"></div>
+        <div className="absolute inset-0 bg-red-600 opacity-80"></div>
 
         {/* Animated particles */}
         <div className="absolute inset-0 overflow-hidden">
@@ -217,7 +260,7 @@ export default async function Home() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1 bg-white/10 text-white rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 bg-red-100/20 text-white rounded-full text-sm font-medium mb-4">
               OUR IMPACT
             </span>
             <h2 className="text-4xl font-bold mb-4">
@@ -243,10 +286,10 @@ export default async function Home() {
                   />
                 </svg>
               </div>
-              <div className="text-5xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
+              <div className="text-5xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-red-100">
                 10,000+
               </div>
-              <div className="text-blue-100 text-lg">Active Players</div>
+              <div className="text-red-100 text-lg">Active Players</div>
             </div>
 
             <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:transform hover:scale-105 transition-all duration-300 group">
@@ -266,10 +309,10 @@ export default async function Home() {
                   />
                 </svg>
               </div>
-              <div className="text-5xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
+              <div className="text-5xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-red-100">
                 50+
               </div>
-              <div className="text-blue-100 text-lg">Professional Coaches</div>
+              <div className="text-red-100 text-lg">Professional Coaches</div>
             </div>
 
             <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:transform hover:scale-105 transition-all duration-300 group">
@@ -289,30 +332,29 @@ export default async function Home() {
                   />
                 </svg>
               </div>
-              <div className="text-5xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
+              <div className="text-5xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-red-100">
                 95%
               </div>
-              <div className="text-blue-100 text-lg">Improvement Rate</div>
+              <div className="text-red-100 text-lg">Improvement Rate</div>
             </div>
           </div>
         </div>
       </section>
-
       {/* Testimonials Section */}
       <section
         id="testimonials"
         className="py-24 bg-white relative overflow-hidden"
       >
-        <div className="absolute top-1/2 left-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute top-1/2 left-0 w-64 h-64 bg-red-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium mb-4">
               TESTIMONIALS
             </span>
-            <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+            <h2 className="text-4xl font-bold mb-4 text-gray-900">
               What Our Players Say
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-700 max-w-2xl mx-auto">
               Hear from players who have transformed their game with our
               platform.
             </p>
@@ -350,7 +392,7 @@ export default async function Home() {
                 className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:translate-y-[-5px]"
               >
                 <div className="flex items-center mb-6">
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-blue-100 shadow-md">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-red-100 shadow-md">
                     <Image
                       src={testimonial.image}
                       alt={testimonial.name}
@@ -362,10 +404,10 @@ export default async function Home() {
                     <h4 className="font-semibold text-lg">
                       {testimonial.name}
                     </h4>
-                    <p className="text-sm text-blue-600">{testimonial.role}</p>
+                    <p className="text-sm text-red-600">{testimonial.role}</p>
                   </div>
                 </div>
-                <p className="text-gray-600 italic bg-gray-50 p-4 rounded-xl border border-gray-100">
+                <p className="text-gray-700 italic bg-gray-50 p-4 rounded-xl border border-gray-100">
                   "{testimonial.quote}"
                 </p>
               </div>
@@ -373,23 +415,22 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544979590-37e9b47eb705?w=1200&q=10')] bg-cover bg-center opacity-5"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-3xl mx-auto bg-white p-12 rounded-3xl shadow-xl border border-gray-100">
-            <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+            <h2 className="text-4xl font-bold mb-4 text-gray-900">
               Ready to Transform Your Game?
             </h2>
-            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-gray-700 mb-8 max-w-2xl mx-auto">
               Join thousands of players who are taking their squash skills to
               the next level with Ramy Ashour's training platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/sign-up"
-                className="inline-flex items-center px-8 py-4 text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 text-lg font-medium"
+                className="inline-flex items-center px-8 py-4 text-white bg-gradient-to-r from-red-600 to-red-800 rounded-xl hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 text-lg font-medium"
               >
                 Sign Up Now
                 <ArrowUpRight className="ml-2 w-4 h-4" />
@@ -404,7 +445,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
       <Footer />
     </div>
   );

@@ -6,7 +6,8 @@ import { AlertCircle, CheckCircle2 } from "lucide-react";
 export type Message =
   | { success: string }
   | { error: string }
-  | { message: string };
+  | { message: string }
+  | { type?: "error" | "success"; message?: string };
 
 export function FormMessage({ message }: { message?: Message }) {
   const searchParams = useSearchParams();
@@ -29,8 +30,17 @@ export function FormMessage({ message }: { message?: Message }) {
           <div>{message.error}</div>
         </div>
       )}
-      {message && "message" in message && (
-        <div className="text-foreground border-l-2 px-4">{message.message}</div>
+      {message && "message" in message && message.message && (
+        <div
+          className={`p-3 rounded-md flex items-start gap-2 ${message.type === "error" ? "bg-red-50 text-red-700" : message.type === "success" ? "bg-green-50 text-green-700" : "text-foreground border-l-2 px-4"}`}
+        >
+          {message.type === "error" ? (
+            <AlertCircle className="h-5 w-5 flex-shrink-0" />
+          ) : message.type === "success" ? (
+            <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
+          ) : null}
+          <div>{message.message}</div>
+        </div>
       )}
       {error && (
         <div className="bg-red-50 text-red-700 p-3 rounded-md flex items-start gap-2">
@@ -41,10 +51,7 @@ export function FormMessage({ message }: { message?: Message }) {
       {success && (
         <div className="bg-green-50 text-green-700 p-3 rounded-md flex items-start gap-2">
           <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
-          <div>
-            Coach account created successfully! A password reset email has been
-            sent to the new coach.
-          </div>
+          <div>{success}</div>
         </div>
       )}
     </div>

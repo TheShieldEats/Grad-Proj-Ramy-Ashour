@@ -22,9 +22,9 @@ export default async function Dashboard() {
       .from("users")
       .select("*")
       .eq("id", user.id)
-      .single();
+      .maybeSingle();
 
-    if (!error) {
+    if (!error && data) {
       userData = data;
     }
   } catch (error) {

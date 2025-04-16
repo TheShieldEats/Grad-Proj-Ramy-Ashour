@@ -3,20 +3,26 @@ import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { SmtpMessage } from "../smtp-message";
 import { signUpAction } from "@/app/actions";
 import Navbar from "@/components/navbar";
+import { createClient } from "../../../../supabase/server";
+import { redirect } from "next/navigation";
 
-export default async function Signup(props: {
-  searchParams: Promise<Message>;
+export default async function SignUp({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[]>;
 }) {
-  const searchParams = await props.searchParams;
-  if ("message" in searchParams) {
-    return (
-      <div className="flex h-screen w-full flex-1 items-center justify-center p-4 sm:max-w-md">
-        <FormMessage message={searchParams} />
-      </div>
-    );
+  const message = searchParams.message || null; // Adjust based on how you pass messages
+  const supabase = await createClient();
+
+  // Check if user is already logged in
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    return redirect("/profiles");
   }
 
   return (
@@ -24,7 +30,11 @@ export default async function Signup(props: {
       <Navbar />
       <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 py-8">
         <div className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm">
-          <form className="flex flex-col space-y-6">
+          <form
+            className="flex flex-col space-y-6"
+            action={signUpAction}
+            method="POST"
+          >
             <div className="space-y-2 text-center">
               <h1 className="text-3xl font-semibold tracking-tight">Sign up</h1>
               <p className="text-sm text-muted-foreground">
@@ -81,20 +91,37 @@ export default async function Signup(props: {
                   className="w-full"
                 />
               </div>
+
+              <input type="hidden" name="role" value="player" />
             </div>
 
             <SubmitButton
-              formAction={signUpAction}
               pendingText="Signing up..."
-              className="w-full"
+              className="w-full bg-red-600 hover:bg-red-700 hover:shadow-lg transition-all duration-300 rounded-xl"
             >
               Sign up
             </SubmitButton>
 
-            <FormMessage message={searchParams} />
+            <FormMessage message={message} />
+
+            <p className="text-xs text-center text-muted-foreground">
+              By creating an account, you agree to our{" "}
+              <Link
+                href="/terms-of-service"
+                className="text-primary hover:underline"
+              >
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy-policy"
+                className="text-primary hover:underline"
+              >
+                Privacy Policy
+              </Link>
+            </p>
           </form>
         </div>
-        <SmtpMessage />
       </div>
     </>
   );

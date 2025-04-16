@@ -244,23 +244,33 @@ export default function ImprovedAIChat() {
       return "Here are some key tips to improve your squash technique:\n\n1. Proper racket grip - Hold the racket with a continental grip for most shots\n2. Good ready position - Stay on the T with knees bent and racket up\n3. Early preparation - Turn your shoulders and prepare your racket early\n4. Watch the ball - Keep your eye on the ball until contact\n5. Follow through - Complete your swing toward the target\n\nFor more specific advice, I recommend booking a session with one of our coaches or uploading a video of your play for analysis.";
     }
 
-    // Use Hugging Face Inference API for open-ended questions
+    // Use Google Generative AI for website and squash-related questions
     try {
-      // Try with a more conversational model first
+      // Using Google's free AI model
       const response = await fetch(
-        "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "x-goog-api-key":
+              process.env.GOOGLE_API_KEY ||
+              "AIzaSyD54xzPlbps0j7zwtCbJH46H-NlNeTfLJs",
           },
           body: JSON.stringify({
-            inputs: `<s>[INST] You are a helpful, friendly assistant for the Ramy Ashour Squash Academy. You provide information about squash training, techniques, booking sessions, and the academy's services. The user is asking: ${message}. Provide a helpful, conversational response. [/INST]</s>`,
-            parameters: {
-              max_new_tokens: 500,
+            contents: [
+              {
+                parts: [
+                  {
+                    text: `You are a helpful assistant for the Ramy Ashour Squash Academy. You ONLY answer questions related to the website functionality or squash-related topics. If the question is not about the website or squash, politely decline to answer and suggest asking about the academy's services, squash techniques, or website features instead. Be conversational, friendly, and vary your responses - don't use the same phrases repeatedly. Provide specific, detailed information when possible. The user is asking: ${message}`,
+                  },
+                ],
+              },
+            ],
+            generationConfig: {
+              maxOutputTokens: 500,
               temperature: 0.7,
-              top_p: 0.95,
-              do_sample: true,
+              topP: 0.95,
             },
           }),
         },
@@ -268,63 +278,17 @@ export default function ImprovedAIChat() {
 
       if (response.ok) {
         const data = await response.json();
-        if (data && data[0] && data[0].generated_text) {
-          // Extract just the assistant's response from the output
-          const fullText = data[0].generated_text;
-          const assistantResponse =
-            fullText.split("[/INST]</s>")[1]?.trim() || fullText;
-          return assistantResponse;
+        if (
+          data &&
+          data.candidates &&
+          data.candidates[0] &&
+          data.candidates[0].content
+        ) {
+          return data.candidates[0].content.parts[0].text;
         }
       }
 
-      // Fallback to FLAN-T5 if Mistral fails
-      const fallbackResponse = await fetch(
-        "https://api-inference.huggingface.co/models/google/flan-t5-xxl",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            inputs: `You are a helpful assistant for the Ramy Ashour Squash Academy. Answer this question in a friendly, conversational way: ${message}`,
-            parameters: {
-              max_length: 500,
-              temperature: 0.7,
-              top_p: 0.95,
-            },
-          }),
-        },
-      );
-
-      if (fallbackResponse.ok) {
-        const fallbackData = await fallbackResponse.json();
-        if (fallbackData && fallbackData[0] && fallbackData[0].generated_text) {
-          return fallbackData[0].generated_text;
-        }
-      }
-
-      // Try one more model as a last resort
-      const lastResortResponse = await fetch(
-        "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            inputs: message,
-          }),
-        },
-      );
-
-      if (lastResortResponse.ok) {
-        const lastResortData = await lastResortResponse.json();
-        if (lastResortData && lastResortData.generated_text) {
-          return `${lastResortData.generated_text} Is there anything else you'd like to know about our squash academy?`;
-        }
-      }
-
-      throw new Error("All LLM API attempts failed");
+      throw new Error("Google AI API attempt failed");
     } catch (error) {
       console.error("Error calling LLM APIs:", error);
       // Improved fallback response that's more conversational
@@ -337,7 +301,7 @@ export default function ImprovedAIChat() {
       {/* Chat button */}
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg bg-blue-600 hover:bg-blue-700 z-50"
+        className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg bg-red-600 hover:bg-red-700 z-50"
       >
         <Bot className="h-6 w-6" />
       </Button>
@@ -348,7 +312,7 @@ export default function ImprovedAIChat() {
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
             <div className="flex items-center gap-2">
-              <Bot className="h-5 w-5 text-blue-600" />
+              <Bot className="h-5 w-5 text-red-600" />
               <h3 className="font-semibold">Squash Academy Assistant</h3>
             </div>
             <Button
@@ -365,7 +329,7 @@ export default function ImprovedAIChat() {
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 ? (
               <div className="text-center text-gray-500 mt-8">
-                <Bot className="h-12 w-12 mx-auto mb-2 text-blue-600" />
+                <Bot className="h-12 w-12 mx-auto mb-2 text-red-600" />
                 <p>Hi! I'm your Squash Academy assistant.</p>
                 <p className="text-sm">How can I help you today?</p>
 
@@ -375,7 +339,7 @@ export default function ImprovedAIChat() {
                     <button
                       key={index}
                       onClick={action.action}
-                      className="flex items-center justify-center gap-2 py-2 px-4 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors"
+                      className="flex items-center justify-center gap-2 py-2 px-4 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition-colors"
                     >
                       {action.icon}
                       <span>{action.label}</span>
@@ -390,7 +354,7 @@ export default function ImprovedAIChat() {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-lg p-3 ${msg.role === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-800"}`}
+                    className={`max-w-[80%] rounded-lg p-3 ${msg.role === "user" ? "bg-red-600 text-white" : "bg-gray-100 text-gray-800"}`}
                   >
                     <p className="whitespace-pre-line">{msg.content}</p>
                   </div>

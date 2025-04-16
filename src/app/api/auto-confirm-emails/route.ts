@@ -1,6 +1,8 @@
 import { createClient } from "../../../../supabase/server";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const supabase = await createClient();
@@ -20,13 +22,23 @@ export async function GET() {
     const updates = [];
     for (const user of users.users) {
       if (!user.email_confirmed_at) {
-        const { error } = await supabase.auth.admin.updateUserById(user.id, {
-          email_confirm: true,
-        });
+        // Update both auth.users and public.users tables
+        const { error: authError } = await supabase.auth.admin.updateUserById(
+          user.id,
+          {
+            email_confirm: true,
+          },
+        );
+
+        // Also update the email_verified field in the users table
+        const { error: userError } = await supabase
+          .from("users")
+          .update({ email_verified: true })
+          .eq("id", user.id);
         updates.push({
           email: user.email,
-          success: !error,
-          error: error?.message,
+          success: !authError && !userError,
+          error: authError?.message || userError?.message,
         });
       }
     }

@@ -61,8 +61,8 @@ export default async function SignInPage({ searchParams }: LoginProps) {
                     Password
                   </Label>
                   <Link
-                    className="text-xs text-muted-foreground hover:text-foreground hover:underline transition-all"
-                    href="/forgot-password"
+                    className="text-red-500 text-xs font-medium hover:text-red-400 hover:underline transition-all"
+                    href="/(auth)/forgot-password"
                   >
                     Forgot Password?
                   </Link>
@@ -79,7 +79,7 @@ export default async function SignInPage({ searchParams }: LoginProps) {
             </div>
 
             <SubmitButton
-              className="w-full"
+              className="w-full bg-transparent border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 font-bold"
               pendingText="Signing in..."
               formAction={signInAction}
             >

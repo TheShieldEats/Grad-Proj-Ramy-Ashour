@@ -7,21 +7,21 @@ const Hero3D = dynamic(() => import("./3d-elements/hero-3d"), { ssr: false });
 
 export default function Hero() {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white">
+    <div className="relative overflow-hidden bg-gradient-to-b from-red-50 to-white">
       {/* Background blur elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-red-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-40 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-      <div className="absolute -bottom-20 left-1/3 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      <div className="absolute -bottom-20 left-1/3 w-72 h-72 bg-red-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
 
       <div className="relative pt-24 pb-32 sm:pt-32 sm:pb-40">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2 text-center md:text-left z-10">
               <div className="relative">
-                <div className="absolute -top-10 -left-10 w-20 h-20 bg-blue-200 rounded-full opacity-50 blur-xl"></div>
+                <div className="absolute -top-10 -left-10 w-20 h-20 bg-red-200 rounded-full opacity-50 blur-xl"></div>
                 <h1 className="text-5xl sm:text-7xl font-bold text-gray-900 mb-8 tracking-tight">
                   Train Like a
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 animate-gradient-text block mt-2">
+                  <span className="text-red-600 block mt-2">
                     World Champion
                   </span>
                 </h1>
@@ -36,7 +36,7 @@ export default function Hero() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center">
                 <Link
                   href="/sign-up"
-                  className="inline-flex items-center px-8 py-4 text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:shadow-xl hover:translate-y-[-2px] transition-all duration-300 text-lg font-medium group"
+                  className="inline-flex items-center px-8 py-4 text-white bg-red-600 hover:bg-red-700 rounded-xl hover:shadow-xl hover:translate-y-[-2px] transition-all duration-300 text-lg font-medium group"
                 >
                   Join Now
                   <ArrowUpRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -52,28 +52,34 @@ export default function Hero() {
 
               <div className="mt-12 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 text-sm text-gray-600">
                 <div className="flex items-center gap-2 glass px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300">
-                  <div className="bg-green-100 p-1 rounded-full">
-                    <Check className="w-4 h-4 text-green-600" />
+                  <div className="bg-red-100 p-1 rounded-full">
+                    <Check className="w-4 h-4 text-red-600" />
                   </div>
-                  <span>AI Video Analysis</span>
+                  <span className="text-red-600 font-medium">
+                    AI Video Analysis
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 glass px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300">
-                  <div className="bg-green-100 p-1 rounded-full">
-                    <Check className="w-4 h-4 text-green-600" />
+                  <div className="bg-red-100 p-1 rounded-full">
+                    <Check className="w-4 h-4 text-red-600" />
                   </div>
-                  <span>Pro Coach Feedback</span>
+                  <span className="text-red-600 font-medium">
+                    Pro Coach Feedback
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 glass px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300">
-                  <div className="bg-green-100 p-1 rounded-full">
-                    <Check className="w-4 h-4 text-green-600" />
+                  <div className="bg-red-100 p-1 rounded-full">
+                    <Check className="w-4 h-4 text-red-600" />
                   </div>
-                  <span>Exclusive Content</span>
+                  <span className="text-red-600 font-medium">
+                    Exclusive Content
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className="md:w-1/2 mt-12 md:mt-0">
-              <div className="relative w-full aspect-square max-w-lg mx-auto rounded-2xl overflow-hidden shadow-2xl glass border border-white/20 hover:shadow-blue-100/20 hover:border-white/30 transition-all duration-500">
+              <div className="relative w-full aspect-square max-w-lg mx-auto rounded-2xl overflow-hidden shadow-2xl glass border border-white/20 hover:shadow-red-100/20 hover:border-white/30 transition-all duration-500">
                 <Hero3D />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
                   <div className="text-white">
