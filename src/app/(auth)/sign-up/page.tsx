@@ -33,7 +33,7 @@ export default async function SignUp({
           <form
             className="flex flex-col space-y-6"
             action={signUpAction}
-            method="POST"
+            
           >
             <div className="space-y-2 text-center">
               <h1 className="text-3xl font-semibold tracking-tight">Sign up</h1>
