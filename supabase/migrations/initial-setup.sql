@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.users (
     user_id text UNIQUE,
     token_identifier text NOT NULL UNIQUE,
     subscription text,
-    credits text,
+    credits integer DEFAULT 0,
     created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at timestamp with time zone DEFAULT timezone('utc'::text, now())
 );
