@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createClient } from "../../../supabase/client";
+import { createClient } from "../../utils/supabase/client";
 import { Calendar, Clock, User, MapPin, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

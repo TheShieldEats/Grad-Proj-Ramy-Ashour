@@ -1,6 +1,6 @@
 import DashboardNavbar from "@/components/dashboard-navbar";
 import { redirect } from "next/navigation";
-import { createClient } from "../../../supabase/server";
+import { createClient } from "../../utils/supabase/server";
 import { TestAccountButtons } from "./client-actions";
 import UserDashboard from "./user-dashboard";
 

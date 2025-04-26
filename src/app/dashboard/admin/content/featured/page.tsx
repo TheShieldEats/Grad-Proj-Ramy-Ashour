@@ -1,6 +1,6 @@
 import DashboardNavbar from "@/components/dashboard-navbar";
 import { Button } from "@/components/ui/button";
-import { createClient } from "../../../../../../supabase/server";
+import { createClient } from "../../../../../utils/supabase/server";
 import { redirect } from "next/navigation";
 import {
   ArrowLeft,

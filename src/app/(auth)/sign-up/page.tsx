@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { signUpAction } from "@/app/actions";
 import Navbar from "@/components/navbar";
-import { createClient } from "../../../../supabase/server";
+import { createClient } from "../../../utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function SignUp({

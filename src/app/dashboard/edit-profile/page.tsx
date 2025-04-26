@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { createClient } from "../../../../supabase/server";
+import { createClient } from "../../../utils/supabase/server";
 import { redirect } from "next/navigation";
 import { ArrowLeft, Save } from "lucide-react";
 import Link from "next/link";

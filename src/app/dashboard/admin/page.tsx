@@ -1,6 +1,6 @@
 import DashboardNavbar from "@/components/dashboard-navbar";
 import { redirect } from "next/navigation";
-import { createClient } from "../../../../supabase/server";
+import { createClient } from "../../../utils/supabase/server";
 import { Database, Tables } from "@/types/supabase";
 import { Shield, Users, BookOpen, BarChart3 } from "lucide-react";
 import Image from "next/image";

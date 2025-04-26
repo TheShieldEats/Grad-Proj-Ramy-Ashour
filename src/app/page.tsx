@@ -12,7 +12,7 @@ import {
   LineChart,
   BookOpen,
 } from "lucide-react";
-import { createClient } from "../../supabase/server";
+import { createClient } from "../utils/supabase/server";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 

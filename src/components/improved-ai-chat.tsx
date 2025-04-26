@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Bot, X, Calendar, Video, Info } from "lucide-react";
-import { createClient } from "../../supabase/client";
+import { createClient } from "../utils/supabase/client";
 
 type Message = {
   role: "user" | "assistant";

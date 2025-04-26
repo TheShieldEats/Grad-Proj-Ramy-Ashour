@@ -3,7 +3,7 @@
 import { encodedRedirect } from "@/utils/utils";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { createClient } from "../../supabase/server";
+import { createClient } from "../utils/supabase/server";
 
 // Helper function to create a user profile in the database
 async function createUserProfile(supabase, user, userData) {
@@ -250,6 +250,7 @@ export const signInAction = async (formData: FormData) => {
   const password = formData.get("password") as string;
   const supabase = await createClient();
 
+  // Remove grant_type from password authentication
   const { data: signInData, error: signInError } =
     await supabase.auth.signInWithPassword({
       email,
@@ -260,39 +261,45 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect("error", "/sign-in", signInError.message);
   }
 
-  // Check if the user is approved based on their role
-  if (signInData.user) {
+  if (!signInData.user) {
+    return encodedRedirect("error", "/sign-in", "No user found in session");
+  }
+
+  try {
+    // Improved query with error handling
     const { data: userData, error: userError } = await supabase
       .from("users")
       .select("role, approved")
       .eq("id", signInData.user.id)
-      .maybeSingle();
+      .single(); // Use single() instead of maybeSingle() since we expect a record
 
-    console.log("User data fetch result:", { userData, userError });
+    if (userError) throw userError;
 
-    if (userError) {
-      console.error("Error fetching user approval status:", userError);
-      // Continue with sign in despite the error
-    } else if (userData) {
-      // If user is a coach or admin and not approved, show message
-      if (
-        (userData.role === "coach" || userData.role === "admin") &&
-        userData.approved === false
-      ) {
-        return encodedRedirect(
-          "warning",
-          "/sign-in",
-          "Your account is pending approval from an administrator. You'll be notified when your account is approved.",
-        );
-      }
-    } else {
-      // If userData is null but no error, the user might not have a profile yet
-      console.log("No user profile found, but continuing with sign in");
+    // Handle approval status
+    if (["coach", "admin"].includes(userData.role) && !userData.approved) {
+      return encodedRedirect(
+        "warning",
+        "/sign-in",
+        "Your account is pending approval from an administrator. You'll be notified when your account is approved."
+      );
     }
+
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    // Handle case where user profile doesn't exist
+    if ((error as any).code === "PGRST116") { // Code for no rows found
+      return redirect("/create-profile");
+    }
+    return encodedRedirect(
+      "error",
+      "/sign-in",
+      "Failed to retrieve user profile information"
+    );
   }
 
   return redirect("/profiles");
 };
+
 
 export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();

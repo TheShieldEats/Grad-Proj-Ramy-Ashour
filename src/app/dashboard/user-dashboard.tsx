@@ -1,4 +1,4 @@
-import { createClient } from "../../../supabase/server";
+import { createClient } from "../../utils/supabase/server";
 import { Database, Tables } from "@/types/supabase";
 import { Calendar, Video, LineChart, BookOpen, Clock } from "lucide-react";
 

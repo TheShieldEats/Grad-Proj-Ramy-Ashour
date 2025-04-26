@@ -4,7 +4,7 @@ import Navbar from "@/components/navbar";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createClient } from "../../../../supabase/server";
+import { createClient } from "../../../utils/supabase/server";
 
 export default async function ResetPassword(props: {
   searchParams: { token?: string; message?: string; type?: string };
